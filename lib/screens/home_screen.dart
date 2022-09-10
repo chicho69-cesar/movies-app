@@ -41,7 +41,8 @@ class HomeScreen extends StatelessWidget {
               // Slider of movies
               MovieSlider(
                 movies: moviesProvider.popularMovies,
-                title: 'Populares!'
+                title: 'Populares!',
+                onNextPage: () => moviesProvider.getPopularMovies(),
               ),
             ],
           ),

@@ -21,29 +21,39 @@ class MoviesProvider extends ChangeNotifier {
 
   /* Cuando usamos un parametro entre [] quiere decir que el parametro es opcional */
   Future<String> _getJsonData(String endpoint, [int page = 1]) async {
-    /* Creamos la url para la peticion (dominio, endpoint, parametros) */
-    var url = Uri.https(_baseUrl, endpoint, {
-      'api_key': _apiKey,
-      'language': _language,
-      'page': '$page'
-    });
+    try {
+      /* Creamos la url para la peticion (dominio, endpoint, parametros) */
+      var url = Uri.https(_baseUrl, endpoint, {
+        'api_key': _apiKey,
+        'language': _language,
+        'page': '$page'
+      });
 
-    final response = await http.get(url);
-    return response.body;
+      final response = await http.get(url);
+      return response.body;
+    } on Exception {
+      return '';
+    }
   }
 
   getOnDisplayMovies() async {
     final jsonData = await _getJsonData('3/movie/now_playing');
-    final nowPlayingResponse = NowPlayingResponse.fromJson(jsonData);
-    onDisplayMovies = nowPlayingResponse.results;
-    notifyListeners();
+    
+    if (jsonData != '') {
+      final nowPlayingResponse = NowPlayingResponse.fromJson(jsonData);
+      onDisplayMovies = nowPlayingResponse.results;
+      notifyListeners();
+    }
   }
 
   getPopularMovies() async {
     _popularPage++;
     final jsonData = await _getJsonData('3/movie/popular', _popularPage);
-    final popularResponse = PopularResponse.fromJson(jsonData);
-    popularMovies = [ ...popularMovies, ...popularResponse.results ];
-    notifyListeners();
+    
+    if (jsonData != '') {
+      final popularResponse = PopularResponse.fromJson(jsonData);
+      popularMovies = [ ...popularMovies, ...popularResponse.results ];
+      notifyListeners();
+    }
   }
 }
