@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+
 import 'package:movies_app/widgets/widgets.dart';
+import 'package:movies_app/providers/movies_provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    /* Creamos una instancia de MoviesProvider para poder manejar las peliculas que obtenemos
+    desde la API, la propiedad listen nos permite redibujar el widget cada que haya un cambio en
+    los elementos que manejamos con provider */
+    final moviesProvider = Provider.of<MoviesProvider>(context, listen: true);
+
     return Container(
       padding: const EdgeInsets.all(5),
       child: Scaffold(
@@ -24,9 +32,9 @@ class HomeScreen extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           child: Column(
-            children: const [
+            children: [
               // Main cards
-              CardSwiper(),
+              CardSwiper(movies: moviesProvider.onDisplayMovies),
         
               // Slider of movies
               MovieSlider(),
