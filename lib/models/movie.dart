@@ -35,7 +35,7 @@ class Movie {
 
   get fullPosterImage {
     return posterPath != null 
-      ? 'https://image.tmdb.org/t/p/w500${ this.posterPath }'
+      ? 'https://image.tmdb.org/t/p/w500$posterPath'
       : 'https://i.stack.imgur.com/GNhxO.png';
   }
 
