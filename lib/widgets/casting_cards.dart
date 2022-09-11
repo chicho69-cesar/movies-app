@@ -1,4 +1,10 @@
+import 'package:flutter/cupertino.dart'  show CupertinoActivityIndicator;
 import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
+
+import 'package:movies_app/models/models.dart';
+import 'package:movies_app/providers/movies_provider.dart';
 
 class CastingCards extends StatelessWidget {
   const CastingCards(this.movieId, {Key? key}) : super(key: key);
@@ -7,20 +13,43 @@ class CastingCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 200,
-      margin: const EdgeInsets.only(bottom: 30, top: 60),
-      child: ListView.builder(
-        itemCount: 10,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: ( _ , int index) => _CastCard(),
-      ),
+    final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
+
+    return FutureBuilder(
+      future: moviesProvider.getMoviecast(movieId),
+      builder: (_, AsyncSnapshot<List<Cast>> snapshot) {
+        if (!snapshot.hasData) {
+          return Container(
+            constraints: const BoxConstraints(maxWidth: 150),
+            width: double.infinity,
+            height: 200,
+            margin: const EdgeInsets.only(bottom: 30, top: 60),
+            child: const CupertinoActivityIndicator(),
+          );
+        }
+
+        final List<Cast> cast = snapshot.data!;
+
+        return Container(
+          width: double.infinity,
+          height: 200,
+          margin: const EdgeInsets.only(bottom: 30, top: 60),
+          child: ListView.builder(
+            itemCount: cast.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: ( _ , int index) => _CastCard(cast[index]),
+          ),
+        );
+      },
     );
   }
 }
 
 class _CastCard extends StatelessWidget {
+  const _CastCard(this.actor);
+  
+  final Cast actor;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,19 +60,19 @@ class _CastCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: const FadeInImage(
+            child: FadeInImage(
               height: 140,
               width: 100,
               fit: BoxFit.cover,
-              placeholder: AssetImage('assets/no-image.jpg'),
-              image: NetworkImage('https://via.placeholder.com/150x300'),
+              placeholder: const AssetImage('assets/no-image.jpg'),
+              image: NetworkImage(actor.fullProfilePath),
             ),
           ),
 
           const SizedBox(height: 5),
 
-          const Text(
-            'actor.name',
+          Text(
+            actor.name,
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
