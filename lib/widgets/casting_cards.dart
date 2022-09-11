@@ -6,7 +6,7 @@ class CastingCards extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 200,
-      margin: const EdgeInsets.only(bottom: 30),
+      margin: const EdgeInsets.only(bottom: 30, top: 60),
       child: ListView.builder(
         itemCount: 10,
         scrollDirection: Axis.horizontal,
