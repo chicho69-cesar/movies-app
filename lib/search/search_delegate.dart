@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:movies_app/providers/movies_provider.dart';
 import 'package:movies_app/models/models.dart';
+import 'package:movies_app/providers/movies_provider.dart';
 
 class MovieSearchDelegate extends SearchDelegate {
   @override

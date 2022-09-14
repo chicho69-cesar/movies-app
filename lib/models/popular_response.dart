@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final popularResponse = popularResponseFromMap(jsonString);
-
 import 'dart:convert';
 
 import 'package:movies_app/models/models.dart';
