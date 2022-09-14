@@ -33,6 +33,10 @@ class Movie {
   double voteAverage;
   int voteCount;
 
+  /* Este atributo nos va a servir para realizar la animacion de hero animation
+  en las peliculas del carrousel de peliculas en cines */
+  String? heroId;
+
   get fullPosterImage {
     return posterPath != null 
       ? 'https://image.tmdb.org/t/p/w500$posterPath'

@@ -35,19 +35,29 @@ class CardSwiper extends StatelessWidget {
         itemBuilder: ( _ , index) {
           final movie = movies[index];
 
+          /* Armamos el hero id de la pelicula para el swiper */
+          movie.heroId = 'swiper-${ movie.id }';
+
           return GestureDetector(
             onTap: () => Navigator.pushNamed(
               context, 
               'details',
               arguments: movie
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: FadeInImage(
-                placeholder: const AssetImage('assets/no-image.jpg'), 
-                image: NetworkImage(movie.fullPosterImage),
-                // image: AssetImage('assets/no-image.jpg'), 
-                fit: BoxFit.cover,
+            /* El widget Hero nos ayuda a hacer animaciones de transicion entre dos screens
+            cuando usamos un Hero por fuerza debemos de usar un tag, el cual puede ser cualquier
+            Object, la unica condicion es que este debe de ser unico en relacion con el que
+            va a recibir la animacion */
+            child: Hero(
+              tag: movie.heroId!,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: FadeInImage(
+                  placeholder: const AssetImage('assets/no-image.jpg'), 
+                  image: NetworkImage(movie.fullPosterImage),
+                  // image: AssetImage('assets/no-image.jpg'), 
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           );
