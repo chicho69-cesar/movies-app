@@ -20,9 +20,6 @@ class DetailsScreen extends StatelessWidget {
             delegate: SliverChildListDelegate([
               _PosterAndTitle(movie),
               _Overview(movie.overview),
-              _Overview(movie.overview),
-              _Overview(movie.overview),
-              _Overview(movie.overview),
               CastingCards(movie.id),
             ]),
           ),
@@ -154,7 +151,7 @@ class _Overview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(right: 30, left: 30, top: 20, bottom: 0),
+      padding: const EdgeInsets.only(right: 30, left: 30, top: 50, bottom: 50),
       child: Text(
         overview,
         textAlign: TextAlign.justify,
