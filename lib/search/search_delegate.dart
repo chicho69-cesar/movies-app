@@ -31,15 +31,30 @@ class MovieSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return const Text(
-      'buildResults'
+    if (query.isEmpty) {
+      return _emptyContainer();
+    }
+
+    final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
+
+    return FutureBuilder(
+      future: moviesProvider.searchMovies(query),
+      builder: (_, AsyncSnapshot<List<Movie>> snapshot) {
+        if (!snapshot.hasData) return _emptyContainer();
+
+        final List<Movie> movies = snapshot.data!;
+
+        return ListView.builder(
+          itemCount: movies.length,
+          itemBuilder: (_, int index) => _MovieItem(movies[index]),
+        );
+      },
     );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     if (query.isEmpty) {
-      // ignore: avoid_unnecessary_containers
       return _emptyContainer();
     }
 
