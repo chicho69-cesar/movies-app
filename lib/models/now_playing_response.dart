@@ -32,10 +32,10 @@ class NowPlayingResponse {
   );
 
   Map<String, dynamic> toMap() => {
-    "dates": dates.toMap(),
-    "page": page,
-    "results": List<dynamic>.from(results.map((x) => x.toMap())),
-    "total_pages": totalPages,
+    "dates":         dates.toMap(),
+    "page":          page,
+    "results":       List<dynamic>.from(results.map((x) => x.toMap())),
+    "total_pages":   totalPages,
     "total_results": totalResults,
   };
 }

@@ -71,19 +71,19 @@ class Movie {
   );
 
   Map<String, dynamic> toMap() => {
-    "adult": adult,
-    "backdrop_path": backdropPath,
-    "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
-    "id": id,
+    "adult":             adult,
+    "backdrop_path":     backdropPath,
+    "genre_ids":         List<dynamic>.from(genreIds.map((x) => x)),
+    "id":                id,
     "original_language": originalLanguage,
-    "original_title": originalTitle,
-    "overview": overview,
-    "popularity": popularity,
-    "poster_path": posterPath,
-    "release_date": releaseDate,
-    "title": title,
-    "video": video,
-    "vote_average": voteAverage,
-    "vote_count": voteCount,
+    "original_title":    originalTitle,
+    "overview":          overview,
+    "popularity":        popularity,
+    "poster_path":       posterPath,
+    "release_date":      releaseDate,
+    "title":             title,
+    "video":             video,
+    "vote_average":      voteAverage,
+    "vote_count":        voteCount,
   };
 }
